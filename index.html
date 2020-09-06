@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>DataBib explorer</title>
+    <script src="/resource/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="/resource/popper/popper.min.js"></script>
+    <link rel="stylesheet" href="/resource/bootstrap-4/css/bootstrap.min.css">
+    <script src="/resource/bootstrap-4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="resource/fontawesome-free-5.12.1-web/css/all.css">
+    <script src="/resource/JSZip/jszip.js"></script>
+    <script src="/index.js"></script>
+    <style>
+      .link{
+        color: dodgerblue;
+        cursor: pointer;
+      }
+      .link:hover{
+        color: royalblue;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="row justify-content-between px-5">
+      <h1 class="h1">Biblioteca de datasets</h1>
+      <a id="auth" href="/resource/authenticate.html" class="my-auto" target="blank">Autenticarse</a>
+      <label id="rem" class="my-auto link" hidden onclick="remove_token()">Eliminar Token</label>
+    </div>
+    <div id="dataBib" class="container-fluid">
+    </div>
+  </body>
+</html>

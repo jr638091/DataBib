@@ -1,0 +1,155 @@
+<html lang="es">
+    <head>
+        <title>DataBib Authentication</title>
+        <meta charset="utf-8">
+        <script src="/resource/jQuery/jquery-3.4.1.min.js"></script>
+        <script src="/resource/popper/popper.min.js"></script>
+        <link rel="stylesheet" href="/resource/bootstrap-4/css/bootstrap.min.css">
+        <script src="/resource/bootstrap-4/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/resource/fontawesome-free-5.12.1-web/css/all.css">
+        <script src="/resource/authenticate.js"></script>
+      </head>
+      <body>
+            <div class="p-4">
+                
+            <h1 class="h1">Autenticarse</h1>
+                <div class="card my-1">
+                    <div class="d-flex card-header justify-content-between" data-toggle="collapse"
+                         data-target="#whatIsPat" aria-expanded="false">
+                        <label>¿Qué es un Personal Access Token(PAT)?</label>
+                        <i class="fas fa-angle-down mr-2" style="font-size: 2rem;" ></i>
+                    </div>
+
+                    <div id="whatIsPat" class="collapse">
+                        <p class="card-body">
+                            En el API de Github existen endpoints que requieren autentificación por parte del usuario
+                            para poder editar y/o acceder al contenido.
+                            Github brinda varias alternativas para esta autentificación OAuth App, Github App y
+                            Personal Token Access.
+                            Este último tiene que ser creado por el usuario, debe ser secreto y de uso personal,
+                            ya que lo identifica en el sistema, es decir cualquier acción que se realize con este token,
+                            Github asumirá que fue ejecutada por el dueño del token.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="card my-1">
+                    <div class="d-flex card-header justify-content-between" data-toggle="collapse"
+                         data-target="#whyPat" aria-expanded="false">
+                        <label>¿Por qué necesito un Personal Access Token para colaborar?</label>
+                        <i class="fas fa-angle-down mr-2" style="font-size: 2rem;" ></i>
+                    </div>
+
+                    <div id="whyPat" class="collapse">
+                        <p class="card-body">
+                            Para poder contribuir a los datasets presentados en esta plataforma,
+                            es necesario autenticarse en Github y así interactuar con el API brindado por este.
+                            Ya que esta plataforma esta montada sobre Github pages, no contamos con un servidor,
+                            para poder usar OAuth authentification brindada por github.
+                            Por ello le pedimos que escriba un Personal Token Access con permisos para editar repos,
+                            permitiendonos almacenarlo en el local storage de su navegador.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="card my-1">
+                    <div class="d-flex card-header justify-content-between" data-toggle="collapse"
+                         data-target="#whoToPat" aria-expanded="false">
+                        <label>¿Como obtener mi Token?</label>
+                        <i class="fas fa-angle-down mr-2" style="font-size: 2rem;" ></i>
+                    </div>
+
+                    <div id="whoToPat" class="collapse show">
+                        <div class="card-body">
+                            Antes de todo es muy importante reafirmar que este Personal Token Access será almacenado
+                            en su navegador es decir que, siempre que el dispositivo sea seguro y personal, el token
+                            estará completamente seguro.
+                            Pasos para obtener el token:
+                            <ol class="">
+                                <li>
+                                    Acceder a <a href="https://github.com/settings/tokens" target="_blank">
+                                        Github</a>.
+                                </li>
+                                <li>
+                                    Presionar sobre Generar Nuevo Token.
+
+                                    <i class="fa fa-search" data-toggle="popover" data-image="1"></i>
+
+                                </li>
+                                <li>
+                                    Poner un nombre que le ayude a recordar el fin de este Token
+                                    <i class="fa fa-search" data-toggle="popover" data-image="2"></i>
+                                </li>
+                                <li>
+                                    Seleccionar permisos de edición de repositorios.
+                                    <i class="fa fa-search" data-toggle="popover" data-image="3"></i>
+                                </li>
+                                <li>
+                                    Hasta aqui debería quedar como mostramos.
+                                    <i class="fa fa-search" data-toggle="popover" data-image="4"></i>
+                                </li>
+                                <li>
+                                    Presionar en Generar Token.
+                                    <i class="fa fa-search" data-toggle="popover" data-image="5"></i>
+                                </li>
+                                <li>
+                                    Debería ver el token, seleccionar y copiarlo o tocar el símbolo de
+                                    clipboard para copiarlo.
+                                    <i class="fa fa-search" data-toggle="popover" data-image="6"></i>
+                                </li>
+                                <li>
+                                    Pegar el token en el <a href="#form">formulario</a> debajo o tocar en el símbolo de clipboard para pegarlo.
+
+                                </li>
+                             </ol>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="" id="form">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2>
+                                    Guardar Personal Token Access
+                                </h2>
+                            </div>
+                            <div class="modal-body">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <label for="github_token" class="font-weight-bold input-group-text">PAT</label>
+                                    </div>
+                                    <input type="text" id="github_token" class="form-control"
+                                           placeholder="Personal Token Access"/>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" onclick="
+                                            var input = $('#github_token')[0]
+                                            navigator.clipboard.readText().then(
+                                                text => input.value = text
+                                            )
+
+                                        "><i class="fa fa-paste"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" onclick="save_token()"> Guardar </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+      <script>
+
+      </script>
+      </body>
+</html>

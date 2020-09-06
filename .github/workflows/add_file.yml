@@ -1,0 +1,22 @@
+name: Add dataset
+on:
+  push:
+    branches: master
+    
+jobs:
+  add_file:
+    name: Add dataset to Data Bib
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: add to index
+        run: python add_file.py ${{ github.sha }} ${{ github.token }}
