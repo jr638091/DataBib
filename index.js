@@ -1,6 +1,6 @@
 
 var request = $.ajax({
-    url: "/index.json",
+    url: "index.json",
     method : "GET"
 });
 
@@ -85,7 +85,7 @@ function remove_token() {
 
 function download(data_name, format = "json", schema = false) {
     var zip = new JSZip()
-    $.getJSON("/resource/config.json")
+    $.getJSON("resource/config.json")
         .done(function (conf) {
             const base_url = "https://api.github.com"
             $.ajax(`${base_url}/repos/${conf.data.owner}/${conf.data.repo}/contents/data/${data_name}/dataset.${format}`)

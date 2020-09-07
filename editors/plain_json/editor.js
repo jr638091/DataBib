@@ -14,7 +14,7 @@ var url_string = window.location.href
 var url = new URL(url_string);
 var dataset_name = url.searchParams.get("name");
 
-$.getJSON(`/resource/config.json`).done(function (config) {
+$.getJSON(`../../resource/config.json`).done(function (config) {
     repo = config["data"]["repo"];
     owner = config["data"]["owner"];
 

@@ -22,7 +22,7 @@ $(function ()
 })
 
 
-$.getJSON(`/resource/config.json`).done(function (config) {
+$.getJSON(`../../resource/config.json`).done(function (config) {
     repo = config["data"]["repo"];
     owner = config["data"]["owner"];
 
