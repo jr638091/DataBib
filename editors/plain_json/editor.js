@@ -31,5 +31,6 @@ $(function(){
 
 function updateData() {
     var saveData = $("#text_editor")[0].innerText
-    uploadChanges(saveData, repo, owner, `data/${dataset_name}/dataset.json`, "mensaje de prueba")
+    let message = ${"#messageArea"}[0].value
+    uploadChanges(saveData, repo, owner, `data/${dataset_name}/dataset.json`, message)
 }
