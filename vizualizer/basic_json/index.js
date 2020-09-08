@@ -24,7 +24,7 @@ $.getJSON(`../../resource/config.json`).done(function (config) {
     repo = config["data"]["repo"];
     owner = config["data"]["owner"];
 
-    $.getJSON(`${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.json?ref=${dataset_name}_latest`)
+    $.getJSON(`${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.json`)
         .done(function (data) {
             dataset_info = data;
             let j = atob(data.content)

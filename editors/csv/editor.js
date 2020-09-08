@@ -14,31 +14,34 @@ var url_string = window.location.href
 var url = new URL(url_string);
 var dataset_name = url.searchParams.get("name");
 
-$.getJSON(`../../resource/config.json`).done(function (config) {
-    repo = config["data"]["repo"];
-    owner = config["data"]["owner"];
+$(function () {
+    $.getJSON(`../../resource/config.json`).done(function (config) {
+        repo = config["data"]["repo"];
+        owner = config["data"]["owner"];
 
-    $.getJSON(`${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.csv?ref=${dataset_name}_latest`)
-        .done(function (data) {
-            dataset_info = data;
-            let rows = atob(data.content).split("\n")
-            let headers = rows[0].split(",")
-            columns = headers.length
-            let headRow = $("#data_table > thead")[0]
-            var headerHTML = `<tr>`
-            for(let i in headers){
-                headerHTML += `
+        $.getJSON(`${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.csv`)
+            .done(function (data) {
+                dataset_info = data;
+                let rows = atob(data.content).split("\n")
+                let headers = rows[0].split(",")
+                columns = headers.length
+                let headRow = $("#data_table > thead")[0]
+                var headerHTML = `<tr>`
+                for(let i in headers){
+                    headerHTML += `
                 <th scope="col"> ${ headers[i] } </th>
                 `
-            }
-            headerHTML += "\n</tr>"
-            headRow.innerHTML = headerHTML
-            rows.shift()
-            rows.forEach(function (i) {
-                make_a_row(i.split(","))
-            })
+                }
+                headerHTML += "\n</tr>"
+                headRow.innerHTML = headerHTML
+                rows.shift()
+                rows.forEach(function (i) {
+                    make_a_row(i.split(","))
+                })
+            });
     });
-});
+})
+
 
 function make_a_row(args = []) {
 
@@ -98,30 +101,6 @@ function updateData() {
         saveData += read_row(body_row[i].cells)
 
     }
-    let access_token = localStorage.getItem("GITHUB_PAT")
-    var encodedString = btoa(saveData);
-    json = {
-        "content": encodedString,
-        "message": `${repo} by ${owner} at ${Date.now()}`,
-        "sha": dataset_info.sha,
-        "branch": `${dataset_name}_latest`
-    };
-    save = $.ajax({
-        method: 'PUT',
-        url: `${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.csv`,
-        beforeSend: function (x) {
-            if (x && x.overrideMimeType) {
-                x.overrideMimeType("application/j-son;charset=UTF-8");
-            }
-        },
-        headers: {
-            Authorization: `Token ${access_token}`
-            // sha: dataset_info.sha
-        },
-        dataType: "json",
-        data: JSON.stringify(json)
-    });
-    save.fail(function (err) {
-        console.log(err);
-    });
+    let message = ${"#messageArea"}[0].value
+    uploadChanges(saveData, repo, owner, `data/${dataset_name}/dataset.csv`, message)
 }

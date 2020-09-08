@@ -17,7 +17,7 @@ $.getJSON(`../../resource/config.json`).done(function (config) {
   repo = config["data"]["repo"];
   owner = config["data"]["owner"];
 
-  $.getJSON(`${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.json?ref=${dataset_name}_latest`).done(function (data) {
+  $.getJSON(`${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.json`).done(function (data) {
     dataset_info = data;
     // Initialize the editor
     editor = new JSONEditor(document.getElementById('editor_holder'), {
@@ -94,31 +94,7 @@ $.getJSON(`../../resource/config.json`).done(function (config) {
 
 function updateData() {
   var saveData = editor.getValue();
-  let access_token = localStorage.getItem("GITHUB_PAT")
   var myJSON = JSON.stringify(saveData);
-  var encodedString = btoa(myJSON);
-  json = {
-    "content": encodedString,
-    "message": `${repo} by ${owner} at ${Date.now()}`,
-    "sha": dataset_info.sha,
-    "branch": `${dataset_name}_latest`
-  };
-  save = $.ajax({
-    method: 'PUT',
-    url: `${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.json`,
-    beforeSend: function (x) {
-      if (x && x.overrideMimeType) {
-        x.overrideMimeType("application/j-son;charset=UTF-8");
-      }
-    },
-    headers: {
-      Authorization: `Token ${access_token}`
-      // sha: dataset_info.sha
-    },
-    dataType: "json",
-    data: JSON.stringify(json)
-  });
-  save.fail(function (err) {
-    console.log(err);
-  });
+  let message = ${"#messageArea"}[0].value
+  uploadChanges(myJSON, repo, owner, `data/${dataset_name}/dataset.json`, message)
 }

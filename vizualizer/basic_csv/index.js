@@ -26,7 +26,7 @@ $.getJSON(`../../resource/config.json`).done(function (config) {
     repo = config["data"]["repo"];
     owner = config["data"]["owner"];
 
-    $.getJSON(`${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.csv?ref=${dataset_name}_latest`)
+    $.getJSON(`${base_url}/repos/${owner}/${repo}/contents/data/${dataset_name}/dataset.csv`)
         .done(function (data) {
             dataset_info = data;
             let rows = atob(data.content).split("\n")
